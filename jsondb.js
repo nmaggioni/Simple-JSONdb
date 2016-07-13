@@ -107,12 +107,12 @@ JSONdb.prototype.get = function(key) {
  */
 JSONdb.prototype.sync = function() {
   if (this.options.asyncWrite) {
-    fs.writeFile(this.filePath, JSON.stringify(this.storage), (err) => {
+    fs.writeFile(this.filePath, JSON.stringify(this.storage, null, 4), (err) => {
       if (err) throw err;
     });
   } else {
     try {
-      fs.writeFileSync(this.filePath, JSON.stringify(this.storage));
+      fs.writeFileSync(this.filePath, JSON.stringify(this.storage, null, 4));
     } catch (err) {
       throw err;  // TODO: Do something meaningful
     }
