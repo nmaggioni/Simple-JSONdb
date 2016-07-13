@@ -99,7 +99,7 @@ JSONdb.prototype.set = function(key, value) {
  * @returns {object|null} The value of the key or `null` if it doesn't exhist.
  */
 JSONdb.prototype.get = function(key) {
-  return this.storage.hasOwnProperty(key) ? this.storage[key] : null;
+  return this.storage.hasOwnProperty(key) ? this.storage[key] : undefined;
 };
 
 /**

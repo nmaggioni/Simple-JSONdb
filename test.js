@@ -25,8 +25,8 @@ while (true) {
 var db = new JSONdb(filePath);
 assert.instanceOf(db, JSONdb);
 
-// Check that a non-exhistent key returns `null`.
-assert.typeOf(db.get('foo'), 'null', 'Unexpected type of initial read');
+// Check that a non-exhistent key returns `undefined`.
+assert.typeOf(db.get('foo'), 'undefined', 'Unexpected type of initial read');
 
 // Check that values can change.
 var change = { testVal: db.get('foo') };
