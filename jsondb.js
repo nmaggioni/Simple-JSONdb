@@ -119,4 +119,21 @@ JSONdb.prototype.sync = function() {
   }
 };
 
+/**
+ * If no parameter is given, returns **a copy** of the local storage. If an object is given, it is used to replace the local storage.
+ * @param {object} storage A JSON object to overwrite the local storage with.
+ * @returns {object} Clone of the internal JSON storage. `Error` if a parameter was given and it was not a valid JSON object.
+ */
+JSONdb.prototype.JSON = function(storage) {
+  if (storage) {
+    try {
+      JSON.parse(JSON.stringify(storage));
+      this.storage = storage;
+    } catch (err) {
+      throw new Error('Given parameter is not a valid JSON object.');
+    }
+  }
+  return JSON.parse(JSON.stringify(this.storage));
+};
+
 module.exports = JSONdb;
