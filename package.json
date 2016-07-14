@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nmaggioni/JSONdb.git"
+    "url": "git+https://github.com/nmaggioni/Simple-JSONdb.git"
   },
   "keywords": [
     "json",
@@ -16,14 +16,16 @@
     "database",
     "storage",
     "engine",
-    "simple"
+    "simple",
+    "node",
+    "nodejs"
   ],
   "author": "Niccolò Maggioni <nicco.maggioni@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/nmaggioni/JSONdb/issues"
+    "url": "https://github.com/nmaggioni/Simple-JSONdb/issues"
   },
-  "homepage": "https://github.com/nmaggioni/JSONdb#readme",
+  "homepage": "https://github.com/nmaggioni/Simple-JSONdb#readme",
   "devDependencies": {
     "babel-cli": "^6.10.1",
     "babel-preset-es2015": "^6.9.0",
