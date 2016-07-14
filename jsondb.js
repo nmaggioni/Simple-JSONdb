@@ -33,7 +33,7 @@ let validateJSON = function(fileContent) {
  */
 function JSONdb(filePath, options) {
   // Mandatory arguments check
-  if (!filePath.length) {
+  if ( !filePath || !filePath.length) {
     throw new Error('Missing filePath argument.');
   } else {
     this.filePath = filePath;
