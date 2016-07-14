@@ -12,7 +12,7 @@ const defaultOptions = {
 /**
  * Validates the contents of a JSON file.
  * @param {string} fileContent
- * @returns {boolean} True if content is ok, throws error if not.
+ * @returns {boolean} `true` if content is ok, throws error if not.
  */
 let validateJSON = function(fileContent) {
   try {
@@ -90,13 +90,13 @@ function JSONdb(filePath, options) {
  */
 JSONdb.prototype.set = function(key, value) {
   this.storage[key] = value;
-  if (this.options.syncOnWrite) this.sync();
+  if (this.options && this.options.syncOnWrite) this.sync();
 };
 
 /**
  * Extracts the value of a key from the database.
  * @param {string} key The key to search for.
- * @returns {object|null} The value of the key or `null` if it doesn't exhist.
+ * @returns {object|undefined} The value of the key or `undefined` if it doesn't exhist.
  */
 JSONdb.prototype.get = function(key) {
   return this.storage.hasOwnProperty(key) ? this.storage[key] : undefined;
