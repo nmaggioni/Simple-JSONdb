@@ -29,7 +29,7 @@ var validateJSON = function validateJSON(fileContent) {
  * Main constructor, manages exhisting storage file and parses options against default ones.
  * @param {string} filePath The path of the file to use as storage.
  * @param {object} [options] Configuration options.
- * @param {number} [options.asyncWrite] Enables the storage to be asynchronously written to disk. Disabled by default (synchronous behaviour).
+ * @param {boolean} [options.asyncWrite] Enables the storage to be asynchronously written to disk. Disabled by default (synchronous behaviour).
  * @param {boolean} [options.syncOnWrite] Makes the storage be written to disk after every modification. Enabled by default.
  * @constructor
  */
