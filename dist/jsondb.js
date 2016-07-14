@@ -107,7 +107,7 @@ JSONdb.prototype.get = function (key) {
  * Writes the local storage object to disk.
  */
 JSONdb.prototype.sync = function () {
-  if (this.options.asyncWrite) {
+  if (this.options && this.options.asyncWrite) {
     fs.writeFile(this.filePath, JSON.stringify(this.storage, null, 4), function (err) {
       if (err) throw err;
     });
