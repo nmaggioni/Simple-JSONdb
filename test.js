@@ -65,6 +65,16 @@ describe("Mechanics", function() {
     assert.notEqual(firstVal, secondVal, 'Values do not change');
   });
 
+  it("Check that keys can be deleted", function() {
+    var db = createInstance();
+    db.set('foo', Date.now());
+    var firstVal = db.get('foo');
+    db.delete('foo');
+    var secondVal = db.get('foo');
+    assert.notEqual(firstVal, secondVal, 'Values do not change');
+    assert.isUndefined(secondVal, 'Key was not deleted');
+  });
+
   it("Verify sync to disk", function() {
     var db = createInstance();
     db.set('foo', Date.now());

@@ -104,6 +104,17 @@ JSONdb.prototype.get = function (key) {
 };
 
 /**
+ * Deletes a key from the database.
+ * @param {string} key The key to delete.
+ * @returns {boolean|undefined} `true` if the deletion succeeded, `false` if there was an error, or `undefined` if the key wasn't found.
+ */
+JSONdb.prototype.delete = function (key) {
+  var retVal = this.storage.hasOwnProperty(key) ? delete this.storage[key] : undefined;
+  if (this.options && this.options.syncOnWrite) this.sync();
+  return retVal;
+};
+
+/**
  * Writes the local storage object to disk.
  */
 JSONdb.prototype.sync = function () {
