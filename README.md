@@ -1,6 +1,9 @@
 # Simple JSONdb
 A simple, no-frills, JSON storage engine for Node.JS.
 
+[![NPM](https://nodei.co/npm/simple-json-db.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/simple-json-db/)
+[![NPM](https://nodei.co/npm-dl/simple-json-db.png?height=2)](https://nodei.co/npm/simple-json-db/)
+
 ## Installation
 
 `npm install --save simple-json-db`
