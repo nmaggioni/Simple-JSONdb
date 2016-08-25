@@ -1,7 +1,6 @@
 var JSONdb = require('./jsondb');
 var assert = require('chai').assert;
 var fs = require('fs');
-var filePath = genFilePath();
 
 /**
  * Generates a file path and name based on current UNIX timestamp.
@@ -14,7 +13,7 @@ function genFileName() {
 /**
  * Makes sure that a unique filename is generated.
  */
-function genFilePath() {
+(function genFilePath() {
   while (true) {
     try {
       global.filePath = genFileName();
@@ -23,7 +22,7 @@ function genFilePath() {
       break;
     }
   }
-}
+})();
 
 /**
  * Returns a new instance of JSONdb.
@@ -34,6 +33,10 @@ function createInstance() {
 }
 
 describe("Consistency", function() {
+  beforeEach('Database cleanup', function() {
+    createInstance().deleteAll();
+  });
+
   it("Create a new JSONdb instance and test `instanceOf`", function() {
     var db = createInstance();
     assert.instanceOf(db, JSONdb);
@@ -46,6 +49,10 @@ describe("Consistency", function() {
 });
 
 describe("Mechanics", function() {
+  beforeEach('Database cleanup', function() {
+    createInstance().deleteAll();
+  });
+
   it("Check that values can change", function() {
     var db = createInstance();
     var change = { testVal: db.get('foo') };
@@ -73,6 +80,17 @@ describe("Mechanics", function() {
     var secondVal = db.get('foo');
     assert.notEqual(firstVal, secondVal, 'Values do not change');
     assert.isUndefined(secondVal, 'Key was not deleted');
+  });
+
+  it("Check that keys existence can be verified (existent key)", function() {
+    var db = createInstance();
+    db.set('foo', Date.now());
+    assert.isTrue(db.has('foo'), 'Key existence is erroneous');
+  });
+
+  it("Check that keys existence can be verified (non-existent key)", function() {
+    var db = createInstance();
+    assert.isFalse(db.has('foo'), 'Key existence is erroneous');
   });
 
   it("Verify sync to disk", function() {

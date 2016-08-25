@@ -24,7 +24,7 @@ let validateJSON = function(fileContent) {
 };
 
 /**
- * Main constructor, manages exhisting storage file and parses options against default ones.
+ * Main constructor, manages existing storage file and parses options against default ones.
  * @param {string} filePath The path of the file to use as storage.
  * @param {object} [options] Configuration options.
  * @param {boolean} [options.asyncWrite] Enables the storage to be asynchronously written to disk. Disabled by default (synchronous behaviour).
@@ -53,20 +53,20 @@ function JSONdb(filePath, options) {
   // Storage initialization
   this.storage = {};
 
-  // File exhistence check
+  // File existence check
   let stats;
   try {
     stats = fs.statSync(filePath);
   } catch (err) {
     if (err.code === 'ENOENT') {
-      /* File doesn't exhist */
+      /* File doesn't exist */
       return;
     } else {
       // Other error
       throw err;  // TODO: Check perm
     }
   }
-  /* File exhists */
+  /* File exists */
   try {
     fs.accessSync(filePath, fs.constants.R_OK | fs.constants.W_OK);
   } catch (err) {
@@ -96,10 +96,19 @@ JSONdb.prototype.set = function(key, value) {
 /**
  * Extracts the value of a key from the database.
  * @param {string} key The key to search for.
- * @returns {object|undefined} The value of the key or `undefined` if it doesn't exhist.
+ * @returns {object|undefined} The value of the key or `undefined` if it doesn't exist.
  */
 JSONdb.prototype.get = function(key) {
   return this.storage.hasOwnProperty(key) ? this.storage[key] : undefined;
+};
+
+/**
+ * Checks if a key is contained in the database.
+ * @param {string} key The key to search for.
+ * @returns {boolean} `True` if it exists, `false` if not.
+ */
+JSONdb.prototype.has = function(key) {
+  return this.storage.hasOwnProperty(key);
 };
 
 /**
@@ -111,6 +120,18 @@ JSONdb.prototype.delete = function(key) {
   let retVal = this.storage.hasOwnProperty(key) ? delete this.storage[key] : undefined;
   if (this.options && this.options.syncOnWrite) this.sync();
   return retVal;
+};
+
+/**
+ * Deletes all keys from the database.
+ * @returns {object} The JSONdb instance itself.
+ */
+JSONdb.prototype.deleteAll = function() {
+  for (var key in this.storage) {
+    //noinspection JSUnfilteredForInLoop
+    this.delete(key);
+  }
+  return this;
 };
 
 /**

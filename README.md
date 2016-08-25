@@ -33,6 +33,11 @@ The `key` parameter must be a string, `value` can be whatever kind of object can
 
 The `key` parameter must be a string. If the key exhists its value is returned, if it doesn't the function returns `undefined`.
 
+### Check a key
+`db.has('key');`
+
+The `key` parameter must be a string. If the key exhists `true` is returned, if it doesn't the function returns `false`.
+
 ### Delete a key
 
 `db.delete('key');`
