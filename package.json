@@ -4,7 +4,7 @@
   "description": "A simple, no-frills, JSON storage engine for Node.JS",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/.bin/mocha --reporter spec"
+    "test": "./node_modules/.bin/mocha --bail --reporter spec"
   },
   "repository": {
     "type": "git",
