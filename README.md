@@ -12,9 +12,17 @@ A simple, no-frills, JSON storage engine for Node.JS.
 
 ### Instantiation
 ```javascript
-var JSONdb = require('simple-json-db');
-var db = new JSONdb('/path/to/your/database.json', { options });
+const JSONdb = require('simple-json-db');
+const db = new JSONdb('/path/to/your/database.json');
 ```
+
+The prototype of the constructor is `new JSONdb(string, [object])`, and you can supply the optional `options` object by giving it as second parameter:
+
+```
+const db = new JSONdb('/path/to/your/database.json', { ... });
+```
+
+See the [Options](#options) section for more details.
 
 #### Options
 
