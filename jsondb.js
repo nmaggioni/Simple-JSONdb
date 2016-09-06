@@ -33,8 +33,8 @@ let validateJSON = function(fileContent) {
  */
 function JSONdb(filePath, options) {
   // Mandatory arguments check
-  if ( !filePath || !filePath.length) {
-    throw new Error('Missing filePath argument.');
+  if (!filePath || !filePath.length) {
+    throw new Error('Missing file path argument.');
   } else {
     this.filePath = filePath;
   }
@@ -61,16 +61,18 @@ function JSONdb(filePath, options) {
     if (err.code === 'ENOENT') {
       /* File doesn't exist */
       return;
+    } else if (err.code === 'EACCES') {
+      throw new Error(`Cannot access path "${filePath}".`);
     } else {
       // Other error
-      throw err;  // TODO: Check perm
+      throw new Error(`Error while checking for existence of path "${filePath}": ${err}`);
     }
   }
   /* File exists */
   try {
     fs.accessSync(filePath, fs.constants.R_OK | fs.constants.W_OK);
   } catch (err) {
-    throw new Error(`Cannot read & write on path "${filePath}"`);
+    throw new Error(`Cannot read & write on path "${filePath}". Check permissions!`);
   }
   if (stats.size > 0) {
     let data;
@@ -146,7 +148,11 @@ JSONdb.prototype.sync = function() {
     try {
       fs.writeFileSync(this.filePath, JSON.stringify(this.storage, null, 4));
     } catch (err) {
-      throw err;  // TODO: Do something meaningful
+      if (err.code === 'EACCES') {
+        throw new Error(`Cannot access path "${this.filePath}".`);
+      } else {
+        throw new Error(`Error while writing to path "${this.filePath}": ${err}`);
+      }
     }
   }
 };
