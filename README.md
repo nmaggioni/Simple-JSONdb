@@ -1,5 +1,5 @@
-# Simple JSONdb
-A simple, no-frills, JSON storage engine for Node.JS.
+# Simple JSONdb [![dependencies Status](https://david-dm.org/nmaggioni/simple-jsondb/status.svg)](https://david-dm.org/nmaggioni/simple-jsondb) [![devDependencies Status](https://david-dm.org/nmaggioni/simple-jsondb/dev-status.svg)](https://david-dm.org/nmaggioni/simple-jsondb?type=dev)
+A simple, no-frills, JSON storage engine for Node.JS with **100% test coverage**.
 
 [![NPM](https://nodei.co/npm/simple-json-db.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/simple-json-db/)
 [![NPM](https://nodei.co/npm-dl/simple-json-db.png?height=2)](https://nodei.co/npm/simple-json-db/)
