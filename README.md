@@ -1,4 +1,4 @@
-# Simple JSONdb [![dependencies Status](https://david-dm.org/nmaggioni/simple-jsondb/status.svg)](https://david-dm.org/nmaggioni/simple-jsondb) [![devDependencies Status](https://david-dm.org/nmaggioni/simple-jsondb/dev-status.svg)](https://david-dm.org/nmaggioni/simple-jsondb?type=dev)
+# Simple JSONdb [![Codacy Badge](https://api.codacy.com/project/badge/Grade/2125ce52d42e40b8971c2329c8a84d99)](https://www.codacy.com/app/nmaggioni/Simple-JSONdb?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=nmaggioni/Simple-JSONdb&amp;utm_campaign=Badge_Grade) [![dependencies Status](https://david-dm.org/nmaggioni/simple-jsondb/status.svg)](https://david-dm.org/nmaggioni/simple-jsondb) [![devDependencies Status](https://david-dm.org/nmaggioni/simple-jsondb/dev-status.svg)](https://david-dm.org/nmaggioni/simple-jsondb?type=dev)
 A simple, no-frills, JSON storage engine for Node.JS with **100% test coverage**.
 
 [![NPM](https://nodei.co/npm/simple-json-db.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/simple-json-db/)
