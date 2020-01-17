@@ -1,4 +1,4 @@
-var JSONdb = require('./jsondb');
+var JSONdb = require('.');
 var assert = require('chai').assert;
 var fs = require('fs');
 
