@@ -2,11 +2,12 @@ const fs = require("fs");
 
 /**
  * Default configuration values.
- * @type {{asyncWrite: boolean, syncOnWrite: boolean}}
+ * @type {{asyncWrite: boolean, syncOnWrite: boolean, jsonSpaces: number}}
  */
 const defaultOptions = {
   asyncWrite: false,
-  syncOnWrite: true
+  syncOnWrite: true,
+  jsonSpaces: 4
 };
 
 /**
@@ -29,6 +30,8 @@ let validateJSON = function(fileContent) {
  * @param {object} [options] Configuration options.
  * @param {boolean} [options.asyncWrite] Enables the storage to be asynchronously written to disk. Disabled by default (synchronous behaviour).
  * @param {boolean} [options.syncOnWrite] Makes the storage be written to disk after every modification. Enabled by default.
+ * @param {boolean} [options.syncOnWrite] Makes the storage be written to disk after every modification. Enabled by default.
+ * @param {number} [options.jsonSpaces] How many spaces to use for indentation in the output json files. Default = 4
  * @constructor
  */
 function JSONdb(filePath, options) {
@@ -141,12 +144,12 @@ JSONdb.prototype.deleteAll = function() {
  */
 JSONdb.prototype.sync = function() {
   if (this.options && this.options.asyncWrite) {
-    fs.writeFile(this.filePath, JSON.stringify(this.storage, null, 4), (err) => {
+    fs.writeFile(this.filePath, JSON.stringify(this.storage, null, this.options.jsonSpaces), (err) => {
       if (err) throw err;
     });
   } else {
     try {
-      fs.writeFileSync(this.filePath, JSON.stringify(this.storage, null, 4));
+      fs.writeFileSync(this.filePath, JSON.stringify(this.storage, null, this.options.jsonSpaces));
     } catch (err) {
       if (err.code === 'EACCES') {
         throw new Error(`Cannot access path "${this.filePath}".`);
