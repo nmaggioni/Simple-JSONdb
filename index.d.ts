@@ -7,7 +7,7 @@ declare class JSONdb {
    * @param {boolean} [options.syncOnWrite] Makes the storage be written to disk after every modification. Enabled by default.
    * @constructor
    */
-  constructor(filePath: string, options: { asyncWrite: boolean, syncOnWrite: boolean });
+  constructor(filePath: string, options?: { asyncWrite?: boolean, syncOnWrite?: boolean });
   
   /**
    * Creates or modifies a key in the database.
