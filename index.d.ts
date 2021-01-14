@@ -14,34 +14,34 @@ declare class JSONdb {
    * @param {string} key The key to create or alter.
    * @param {object} value Whatever to store in the key. You name it, just keep it JSON-friendly.
    */
-  set (key: string, value: object) : void;
+  set(key: string, value: object) : void;
 
   /**
    * Extracts the value of a key from the database.
    * @param {string} key The key to search for.
    * @returns {object|undefined} The value of the key or `undefined` if it doesn't exist.
    */
-  get (key: string) : object | undefined;
+  get(key: string) : object | undefined;
 
   /**
    * Checks if a key is contained in the database.
    * @param {string} key The key to search for.
    * @returns {boolean} `True` if it exists, `false` if not.
    */
-  has (key: string) : boolean;
+  has(key: string) : boolean;
 
   /**
    * Deletes a key from the database.
    * @param {string} key The key to delete.
    * @returns {boolean|undefined} `true` if the deletion succeeded, `false` if there was an error, or `undefined` if the key wasn't found.
    */
-  delete (key: string) : boolean | undefined;
+  delete(key: string) : boolean | undefined;
 
   /**
    * Deletes all keys from the database.
    * @returns {object} The JSONdb instance itself.
    */
-  deleteAll () : this;
+  deleteAll() : this;
 
   /**
    * Writes the local storage object to disk.
@@ -53,7 +53,7 @@ declare class JSONdb {
    * @param {object} storage A JSON object to overwrite the local storage with.
    * @returns {object} Clone of the internal JSON storage. `Error` if a parameter was given and it was not a valid JSON object.
    */
-  JSON(storage?: object) : this;
+  JSON(storage?: object) : object;
 }
 
 export = JSONdb;
