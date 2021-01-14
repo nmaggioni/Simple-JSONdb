@@ -3,6 +3,7 @@
   "version": "1.2.2",
   "description": "A simple, no-frills, JSON storage engine for Node.JS",
   "main": "index.js",
+  "types": "index.d.ts",
   "engines": {
     "node": ">=6.0"
   },
