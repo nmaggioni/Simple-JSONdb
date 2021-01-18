@@ -24,16 +24,6 @@ let validateJSON = function(fileContent) {
   return true;
 };
 
-/**
- * Main constructor, manages existing storage file and parses options against default ones.
- * @param {string} filePath The path of the file to use as storage.
- * @param {object} [options] Configuration options.
- * @param {boolean} [options.asyncWrite] Enables the storage to be asynchronously written to disk. Disabled by default (synchronous behaviour).
- * @param {boolean} [options.syncOnWrite] Makes the storage be written to disk after every modification. Enabled by default.
- * @param {boolean} [options.syncOnWrite] Makes the storage be written to disk after every modification. Enabled by default.
- * @param {number} [options.jsonSpaces] How many spaces to use for indentation in the output json files. Default = 4
- * @constructor
- */
 function JSONdb(filePath, options) {
   // Mandatory arguments check
   if (!filePath || !filePath.length) {
@@ -88,49 +78,25 @@ function JSONdb(filePath, options) {
   }
 }
 
-/**
- * Creates or modifies a key in the database.
- * @param {string} key The key to create or alter.
- * @param {object} value Whatever to store in the key. You name it, just keep it JSON-friendly.
- */
 JSONdb.prototype.set = function(key, value) {
   this.storage[key] = value;
   if (this.options && this.options.syncOnWrite) this.sync();
 };
 
-/**
- * Extracts the value of a key from the database.
- * @param {string} key The key to search for.
- * @returns {object|undefined} The value of the key or `undefined` if it doesn't exist.
- */
 JSONdb.prototype.get = function(key) {
   return this.storage.hasOwnProperty(key) ? this.storage[key] : undefined;
 };
 
-/**
- * Checks if a key is contained in the database.
- * @param {string} key The key to search for.
- * @returns {boolean} `True` if it exists, `false` if not.
- */
 JSONdb.prototype.has = function(key) {
   return this.storage.hasOwnProperty(key);
 };
 
-/**
- * Deletes a key from the database.
- * @param {string} key The key to delete.
- * @returns {boolean|undefined} `true` if the deletion succeeded, `false` if there was an error, or `undefined` if the key wasn't found.
- */
 JSONdb.prototype.delete = function(key) {
   let retVal = this.storage.hasOwnProperty(key) ? delete this.storage[key] : undefined;
   if (this.options && this.options.syncOnWrite) this.sync();
   return retVal;
 };
 
-/**
- * Deletes all keys from the database.
- * @returns {object} The JSONdb instance itself.
- */
 JSONdb.prototype.deleteAll = function() {
   for (var key in this.storage) {
     //noinspection JSUnfilteredForInLoop
@@ -139,9 +105,6 @@ JSONdb.prototype.deleteAll = function() {
   return this;
 };
 
-/**
- * Writes the local storage object to disk.
- */
 JSONdb.prototype.sync = function() {
   if (this.options && this.options.asyncWrite) {
     fs.writeFile(this.filePath, JSON.stringify(this.storage, null, this.options.jsonSpaces), (err) => {
@@ -160,11 +123,6 @@ JSONdb.prototype.sync = function() {
   }
 };
 
-/**
- * If no parameter is given, returns **a copy** of the local storage. If an object is given, it is used to replace the local storage.
- * @param {object} storage A JSON object to overwrite the local storage with.
- * @returns {object} Clone of the internal JSON storage. `Error` if a parameter was given and it was not a valid JSON object.
- */
 JSONdb.prototype.JSON = function(storage) {
   if (storage) {
     try {
