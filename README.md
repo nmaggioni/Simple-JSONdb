@@ -1,6 +1,8 @@
-# Simple JSONdb [![npm](https://img.shields.io/npm/v/simple-json-db)](https://www.npmjs.com/package/simple-json-db) [![npm](https://img.shields.io/npm/dw/simple-json-db)](https://www.npmjs.com/package/simple-json-db) [![Minimum NodeJS version](https://img.shields.io/node/v/simple-json-db)](https://www.npmjs.com/package/simple-json-db) [![Dependents (via libraries.io)](https://img.shields.io/librariesio/dependents/npm/simple-json-db)](https://libraries.io/npm/simple-json-db/dependents) [![Snyk Vulnerabilities for npm package](https://img.shields.io/snyk/vulnerabilities/npm/simple-json-db)](https://snyk.io/vuln/search?q=simple-json-db&type=npm)
+# Simple JSONdb [![npm](https://img.shields.io/npm/v/simple-json-db)](https://www.npmjs.com/package/simple-json-db) [![npm](https://img.shields.io/npm/dw/simple-json-db)](https://www.npmjs.com/package/simple-json-db) [![Minimum NodeJS version](https://img.shields.io/node/v/simple-json-db)](https://www.npmjs.com/package/simple-json-db) [![Dependents (via libraries.io)](https://img.shields.io/librariesio/dependents/npm/simple-json-db)](https://libraries.io/npm/simple-json-db/dependents) ![npm bundle size](https://img.shields.io/bundlephobia/min/simple-json-db)
 
-A simple, no-frills, JSON storage engine for Node.JS with full test coverage.
+A simple, no-frills, JSON **key-value** storage engine for Node.JS with full test coverage.
+
+> [What is a key-value storage and when to use it?](https://redislabs.com/nosql/key-value-databases/)
 
 ## Installation
 
@@ -11,13 +13,13 @@ A simple, no-frills, JSON storage engine for Node.JS with full test coverage.
 ### Instantiation
 ```javascript
 const JSONdb = require('simple-json-db');
-const db = new JSONdb('/path/to/your/database.json');
+const db = new JSONdb('/path/to/your/storage.json');
 ```
 
 The prototype of the constructor is `new JSONdb(string, [object])`, and you can supply the optional `options` object by giving it as second parameter:
 
 ```
-const db = new JSONdb('/path/to/your/database.json', { ... });
+const db = new JSONdb('/path/to/your/storage.json', { ... });
 ```
 
 See the [Options](#options) section for more details.
@@ -38,18 +40,18 @@ The `key` parameter must be a string, `value` can be whatever kind of object can
 ### Get a key
 `db.get('key');`
 
-The `key` parameter must be a string. If the key exhists its value is returned, if it doesn't the function returns `undefined`.
+The `key` parameter must be a string. If the key exists its value is returned, if it doesn't the function returns `undefined`.
 
 ### Check a key
 `db.has('key');`
 
-The `key` parameter must be a string. If the key exhists `true` is returned, if it doesn't the function returns `false`.
+The `key` parameter must be a string. If the key exists `true` is returned, if it doesn't the function returns `false`.
 
 ### Delete a key
 
 `db.delete('key');`
 
-The `key` parameter must be a string. The function returns [as per the _delete_ operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/delete#Return_value) if the key exhists, else it returns `undefined`.
+The `key` parameter must be a string. The function returns [as per the _delete_ operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/delete#Return_value) if the key exists, else it returns `undefined`.
 
 ### Sync to disk
 `db.sync();`
