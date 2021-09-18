@@ -7,7 +7,7 @@ declare class JSONdb<T = object> {
   delete(key: string) : boolean | undefined;
   deleteAll() : this;
   sync() : void;
-  JSON(storage?: T) : T;
+  JSON(storage?: Record<string, T>) : Record<string, T>;
 }
 
 export = JSONdb;
