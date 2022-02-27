@@ -117,6 +117,15 @@ JSONdb.prototype.has = function(key) {
 };
 
 /**
+ * Size of keys in the database.
+ * @returns {number} Number of keys in the database.
+ */
+JSONdb.prototype.size = function() {
+  return Object.keys(this.storage).length;
+};
+
+
+/**
  * Deletes a key from the database.
  * @param {string} key The key to delete.
  * @returns {boolean|undefined} `true` if the deletion succeeded, `false` if there was an error, or `undefined` if the key wasn't found.
