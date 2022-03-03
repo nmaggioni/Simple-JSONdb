@@ -7,7 +7,9 @@ const fs = require("fs");
 const defaultOptions = {
   asyncWrite: false,
   syncOnWrite: true,
-  jsonSpaces: 4
+  jsonSpaces: 4,
+  stringify: JSON.stringify,
+  parse: JSON.parse
 };
 
 /**
@@ -17,7 +19,7 @@ const defaultOptions = {
  */
 let validateJSON = function(fileContent) {
   try {
-    JSON.parse(fileContent);
+    this.options.parse(fileContent);
   } catch (e) {
     throw new Error('Given filePath is not empty and its content is not valid JSON.');
   }
@@ -84,7 +86,7 @@ function JSONdb(filePath, options) {
     } catch (err) {
       throw err;  // TODO: Do something meaningful
     }
-    if (validateJSON(data)) this.storage = JSON.parse(data);
+    if (validateJSON(data)) this.storage = this.options.parse(data);
   }
 }
 
@@ -144,12 +146,12 @@ JSONdb.prototype.deleteAll = function() {
  */
 JSONdb.prototype.sync = function() {
   if (this.options && this.options.asyncWrite) {
-    fs.writeFile(this.filePath, JSON.stringify(this.storage, null, this.options.jsonSpaces), (err) => {
+    fs.writeFile(this.filePath, this.options.stringify(this.storage, null, this.options.jsonSpaces), (err) => {
       if (err) throw err;
     });
   } else {
     try {
-      fs.writeFileSync(this.filePath, JSON.stringify(this.storage, null, this.options.jsonSpaces));
+      fs.writeFileSync(this.filePath, this.options.stringify(this.storage, null, this.options.jsonSpaces));
     } catch (err) {
       if (err.code === 'EACCES') {
         throw new Error(`Cannot access path "${this.filePath}".`);
@@ -168,13 +170,13 @@ JSONdb.prototype.sync = function() {
 JSONdb.prototype.JSON = function(storage) {
   if (storage) {
     try {
-      JSON.parse(JSON.stringify(storage));
+      JSON.parse(this.options.stringify(storage));
       this.storage = storage;
     } catch (err) {
       throw new Error('Given parameter is not a valid JSON object.');
     }
   }
-  return JSON.parse(JSON.stringify(this.storage));
+  return JSON.parse(this.options.stringify(this.storage));
 };
 
 module.exports = JSONdb;
