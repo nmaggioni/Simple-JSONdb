@@ -86,7 +86,7 @@ function JSONdb(filePath, options) {
     } catch (err) {
       throw err;  // TODO: Do something meaningful
     }
-    if (validateJSON(data)) this.storage = this.options.parse(data);
+    if (validateJSON.bind(this)(data)) this.storage = this.options.parse(data);
   }
 }
 
