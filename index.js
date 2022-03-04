@@ -21,7 +21,8 @@ let validateJSON = function(fileContent) {
   try {
     this.options.parse(fileContent);
   } catch (e) {
-    throw new Error('Given filePath is not empty and its content is not valid JSON.');
+    console.error('Given filePath is not empty and its content is not valid JSON.');
+    throw e;
   }
   return true;
 };
