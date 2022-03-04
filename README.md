@@ -26,11 +26,15 @@ See the [Options](#options) section for more details.
 
 #### Options
 
-| **Key**     | **Value type** | **Description**                                                | **Default value**                   |
-|-------------|----------------|----------------------------------------------------------------|-------------------------------------|
-| asyncWrite  | _Boolean_      | Enables the storage to be asynchronously written to disk.      | _**false**_ (synchronous behaviour) |
-| syncOnWrite | _Boolean_      | Makes the storage be written to disk after every modification. | _**true**_                          |
-| jsonSpaces  | _Number_       | The number of spaces used for indentation in the output JSON.  | _**4**_                             |
+All keys are optional and will default to a safe value.
+
+| **Key**     | **Value type**               | **Description**                                                   | **Default value**                   |
+|-------------|------------------------------|-------------------------------------------------------------------|-------------------------------------|
+| asyncWrite  | _Boolean_                    | Enables the storage to be asynchronously written to disk.         | _**false**_ (synchronous behaviour) |
+| syncOnWrite | _Boolean_                    | Makes the storage be written to disk after every modification.    | _**true**_                          |
+| jsonSpaces  | _Number_                     | The number of spaces used for indentation in the output JSON.     | _**4**_                             |
+| stringify   | _Function(object) => string_ | A stringifier function to serialize JS objects into JSON strings. | _**JSON.stringify**_                |
+| parse       | _Function(string) => object_ | A parser function to deserialize JSON strings into JS objects.    | _**JSON.parse**_                    |
 
 ### Set a key
 `db.set('key', 'value');`
