@@ -6,7 +6,7 @@ A simple, no-frills, JSON **key-value** storage engine for Node.JS with full tes
 
 ## Installation
 
-`npm install --save simple-json-db`
+`npm install simple-json-db`
 
 ## Usage
 
@@ -74,4 +74,4 @@ Giving a parameter to the `JSON` function makes the object passed replace the in
 
 ## Tests
 
-Run `npm test` to start the combined Mocha & Chai testing suite.
+Run `npm ci` to install the testing dependencies and `npm test` to start the test suite.
