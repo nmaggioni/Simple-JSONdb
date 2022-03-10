@@ -34,7 +34,9 @@ let validateJSON = function(fileContent) {
  * @param {boolean} [options.asyncWrite] Enables the storage to be asynchronously written to disk. Disabled by default (synchronous behaviour).
  * @param {boolean} [options.syncOnWrite] Makes the storage be written to disk after every modification. Enabled by default.
  * @param {boolean} [options.syncOnWrite] Makes the storage be written to disk after every modification. Enabled by default.
- * @param {number} [options.jsonSpaces] How many spaces to use for indentation in the output json files. Default = 4
+ * @param {number} [options.jsonSpaces] How many spaces to use for indentation in the output JSON files. Default = 4
+ * @param {Function} [options.stringify] The JSON stringifier used by the databse. Default = JSON.stringify
+ * @param {Function} [options.parse] The JSON parser used by the database. Default = JSON.parse
  * @constructor
  */
 function JSONdb(filePath, options) {
@@ -43,6 +45,13 @@ function JSONdb(filePath, options) {
     throw new Error('Missing file path argument.');
   } else {
     this.filePath = filePath;
+  }
+  
+  // Option validating
+  if (options) {
+    if (options.stringify && options.jsonSpaces) {
+      throw new Error('jsonSpaces cannot be used with custom stringifier. Try using a wrapper instead.');
+    }
   }
 
   // Options parsing
@@ -147,12 +156,24 @@ JSONdb.prototype.deleteAll = function() {
  */
 JSONdb.prototype.sync = function() {
   if (this.options && this.options.asyncWrite) {
-    fs.writeFile(this.filePath, this.options.stringify(this.storage, null, this.options.jsonSpaces), (err) => {
-      if (err) throw err;
+    return new Promise((res, rej) => {
+      if (this.options.stringify === defaultOptions.stringify) {
+        fs.writeFile(this.filePath, this.options.stringify(this.storage, null, this.options.jsonSpaces), (err) => {
+          if (err) rej(err); else res();
+        });
+      } else {
+        fs.writeFile(this.filePath, this.options.stringify(this.storage), (err) => {
+          if (err) rej(err); else res();
+        });
+      }
     });
   } else {
     try {
-      fs.writeFileSync(this.filePath, this.options.stringify(this.storage, null, this.options.jsonSpaces));
+      if (this.options.stringify === defaultOptions.stringify) {
+        fs.writeFileSync(this.filePath, this.options.stringify(this.storage, null, this.options.jsonSpaces));
+      } else {
+        fs.writeFileSync(this.filePath, this.options.stringify(this.storage));
+      }
     } catch (err) {
       if (err.code === 'EACCES') {
         throw new Error(`Cannot access path "${this.filePath}".`);
