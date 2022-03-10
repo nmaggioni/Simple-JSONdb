@@ -47,6 +47,7 @@ function JSONdb(filePath, options) {
 
   // Options parsing
   if (options) {
+    this.origoptions = options;
     for (let key in defaultOptions) {
       if (!options.hasOwnProperty(key)) options[key] = defaultOptions[key];
     }
@@ -146,13 +147,19 @@ JSONdb.prototype.deleteAll = function() {
  * Writes the local storage object to disk.
  */
 JSONdb.prototype.sync = function() {
+  let args = [this.storage];
+  if (this.origoptions && this.origoptions.stringify) {//custom stringifier
+    args = [this.storage, null, this.options.jsonSpaces];
+  }
   if (this.options && this.options.asyncWrite) {
-    fs.writeFile(this.filePath, this.options.stringify(this.storage, null, this.options.jsonSpaces), (err) => {
-      if (err) throw err;
+    return new Promise((res, rej) => {
+      fs.writeFile(this.filePath, this.options.stringify(...args), (err) => {
+        if (err) rej(err); else res();
+      });
     });
   } else {
     try {
-      fs.writeFileSync(this.filePath, this.options.stringify(this.storage, null, this.options.jsonSpaces));
+      fs.writeFileSync(this.filePath, this.options.stringify(...args));
     } catch (err) {
       if (err.code === 'EACCES') {
         throw new Error(`Cannot access path "${this.filePath}".`);
