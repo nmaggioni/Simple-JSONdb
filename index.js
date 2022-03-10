@@ -34,7 +34,9 @@ let validateJSON = function(fileContent) {
  * @param {boolean} [options.asyncWrite] Enables the storage to be asynchronously written to disk. Disabled by default (synchronous behaviour).
  * @param {boolean} [options.syncOnWrite] Makes the storage be written to disk after every modification. Enabled by default.
  * @param {boolean} [options.syncOnWrite] Makes the storage be written to disk after every modification. Enabled by default.
- * @param {number} [options.jsonSpaces] How many spaces to use for indentation in the output json files. Default = 4
+ * @param {number} [options.jsonSpaces] How many spaces to use for indentation in the output JSON files. Default = 4
+ * @param {Function} [options.stringify] A custom JSON stringifier to use in the database. Default = JSON.stringify
+ * @param {Function} [options.parse] A custom JSON parser for the database. Default = JSON.parse
  * @constructor
  */
 function JSONdb(filePath, options) {
