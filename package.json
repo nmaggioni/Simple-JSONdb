@@ -1,6 +1,6 @@
 {
   "name": "simple-json-db",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "A simple, no-frills, JSON storage engine for Node.JS",
   "main": "index.js",
   "types": "index.d.ts",
