@@ -121,6 +121,32 @@ describe('Mechanics', function() {
     db.set('foo', Date.now());
     assert.doesNotThrow(db.sync, Error, 'Cannot save to disk');
   });
+
+  it('Check that the copy of the underlying structure is coherent', function() {
+    const db = createInstance();
+    const reference = {};
+    for (let i = 0; i < iterableTestsCount; i++) {
+      const now = Date.now();
+      db.set('foo', now);
+      reference.foo = now;
+      db.set('bar', now + 1000);
+      reference.bar = now + 1000;
+      assert.equal(JSON.stringify(db.JSON()), JSON.stringify(reference), 'Returned copy does not match');
+    }
+  });
+
+  it('Check that the underlying structure can be replaced', function() {
+    const db = createInstance();
+    const replacement = {};
+    const now = Date.now();
+    db.set('foo', now);
+    db.set('bar', now + 1000);
+    replacement.foo = now - 1000;
+    replacement.bar = now - 2000;
+    assert.notEqual(JSON.stringify(db.JSON()), JSON.stringify(replacement), 'Replacement is equal');
+    db.JSON(replacement);
+    assert.equal(JSON.stringify(db.JSON()), JSON.stringify(replacement), 'Replaced structure is not equal');
+  });
 });
 
 describe('Persistency', function() {
