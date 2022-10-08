@@ -34,7 +34,9 @@ let validateJSON = function(fileContent) {
  * @param {boolean} [options.asyncWrite] Enables the storage to be asynchronously written to disk. Disabled by default (synchronous behaviour).
  * @param {boolean} [options.syncOnWrite] Makes the storage be written to disk after every modification. Enabled by default.
  * @param {boolean} [options.syncOnWrite] Makes the storage be written to disk after every modification. Enabled by default.
- * @param {number} [options.jsonSpaces] How many spaces to use for indentation in the output json files. Default = 4
+ * @param {number} [options.jsonSpaces] How many spaces to use for indentation in the output JSON files. Default = 4
+ * @param {Function} [options.stringify] A custom JSON stringifier to use in the database. Default = JSON.stringify
+ * @param {Function} [options.parse] A custom JSON parser for the database. Default = JSON.parse
  * @constructor
  */
 function JSONdb(filePath, options) {
@@ -47,6 +49,7 @@ function JSONdb(filePath, options) {
 
   // Options parsing
   if (options) {
+    this.origoptions = options;
     for (let key in defaultOptions) {
       if (!options.hasOwnProperty(key)) options[key] = defaultOptions[key];
     }
@@ -146,13 +149,19 @@ JSONdb.prototype.deleteAll = function() {
  * Writes the local storage object to disk.
  */
 JSONdb.prototype.sync = function() {
+  let args = [this.storage];
+  if (this.origoptions && this.origoptions.stringify) {//custom stringifier
+    args = [this.storage, null, this.options.jsonSpaces];
+  }
   if (this.options && this.options.asyncWrite) {
-    fs.writeFile(this.filePath, this.options.stringify(this.storage, null, this.options.jsonSpaces), (err) => {
-      if (err) throw err;
+    return new Promise((res, rej) => {
+      fs.writeFile(this.filePath, this.options.stringify(...args), (err) => {
+        if (err) rej(err); else res();
+      });
     });
   } else {
     try {
-      fs.writeFileSync(this.filePath, this.options.stringify(this.storage, null, this.options.jsonSpaces));
+      fs.writeFileSync(this.filePath, this.options.stringify(...args));
     } catch (err) {
       if (err.code === 'EACCES') {
         throw new Error(`Cannot access path "${this.filePath}".`);
