@@ -1,18 +1,16 @@
-# Simple JSONdb [![npm](https://img.shields.io/npm/v/simple-json-db)](https://www.npmjs.com/package/simple-json-db) [![npm](https://img.shields.io/npm/dw/simple-json-db)](https://www.npmjs.com/package/simple-json-db) [![Minimum NodeJS version](https://img.shields.io/node/v/simple-json-db)](https://www.npmjs.com/package/simple-json-db) [![Dependents (via libraries.io)](https://img.shields.io/librariesio/dependents/npm/simple-json-db)](https://libraries.io/npm/simple-json-db/dependents) ![npm bundle size](https://img.shields.io/bundlephobia/min/simple-json-db)
+<img src="https://user-images.githubusercontent.com/70700766/196008415-77fb1306-c178-4d7b-88fb-a0888d926171.png" width="300" alt="qjson-db: Dead simple database">
 
-A simple, no-frills, JSON **key-value** storage engine for Node.JS with full test coverage.
+***
 
-> [What is a key-value storage and when to use it?](https://redislabs.com/nosql/key-value-databases/)
+A fork of [nmaggioni/Simple-JSONdb](https://github.com/nmaggioni/Simple-JSONdb), this is a dead simple JSON database for your web app.
 
-## Installation
-
-`npm install simple-json-db`
+**Install:** `npm i qjson-db`
 
 ## Usage
 
 ### Instantiation
 ```javascript
-const JSONdb = require('simple-json-db');
+const JSONdb = require('qjson-db');
 const db = new JSONdb('/path/to/your/storage.json');
 ```
 
