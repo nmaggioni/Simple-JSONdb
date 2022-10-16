@@ -1,5 +1,5 @@
 {
-  "name": "simple-json-db",
+  "name": "qjson-db",
   "version": "2.0.0",
   "description": "A simple, no-frills, JSON storage engine for Node.JS",
   "main": "index.js",
@@ -24,10 +24,10 @@
     "node",
     "nodejs"
   ],
-  "author": "Niccolò Maggioni <nicco.maggioni@gmail.com>",
+  "author": "Tiago Rangel",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/nmaggioni/Simple-JSONdb/issues"
+    "url": "https://github.com/tiagorangel2011/qjson-db/issues"
   },
   "homepage": "https://github.com/nmaggioni/Simple-JSONdb#readme",
   "devDependencies": {

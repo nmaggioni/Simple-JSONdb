@@ -1,4 +1,4 @@
-<img src="https://user-images.githubusercontent.com/70700766/196008415-77fb1306-c178-4d7b-88fb-a0888d926171.png" width="300" alt="qjson-db: Dead simple database">
+<img src="https://user-images.githubusercontent.com/70700766/196008415-77fb1306-c178-4d7b-88fb-a0888d926171.png" width="300" alt="qjson-db: Dead simple JSON database">
 
 ***
 
@@ -8,16 +8,16 @@ A fork of [nmaggioni/Simple-JSONdb](https://github.com/nmaggioni/Simple-JSONdb),
 
 ## Usage
 
-### Instantiation
+### Start
 ```javascript
-const JSONdb = require('qjson-db');
+const qjson = require('qjson-db');
 const db = new JSONdb('/path/to/your/storage.json');
 ```
 
-The prototype of the constructor is `new JSONdb(string, [object])`, and you can supply the optional `options` object by giving it as second parameter:
+You can supply the optional `options` object by giving it as second parameter:
 
-```
-const db = new JSONdb('/path/to/your/storage.json', { ... });
+```javascript
+const db = new qjson('/path/to/your/storage.json', { ... });
 ```
 
 See the [Options](#options) section for more details.
@@ -37,7 +37,7 @@ All keys are optional and will default to a safe value.
 ### Set a key
 `db.set('key', 'value');`
 
-The `key` parameter must be a string, `value` can be whatever kind of object can be stored in JSON format. _`JSON.stringify()` is your friend!_
+The `key` parameter must be a string, `value` can be whatever kind of object can be stored in JSON format.
 
 ### Get a key
 `db.get('key');`
